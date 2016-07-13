@@ -1,8 +1,7 @@
+
 package rsa;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 
@@ -27,10 +26,7 @@ public class RSA {
                 case "-d": {
                     PrivateKey priv = PrivateKey.getPrivateKey(args[1]);
                     
-                    BigInteger cipher;
-                    try (BufferedReader br = new BufferedReader(new FileReader("cipher.txt"))) {
-                        cipher = new BigInteger(br.readLine());
-                    }   
+                    BigInteger cipher = new BigInteger(Util.readFromFile("cipher.txt"));
                     
                     String message = decrypt(cipher, priv);
                     System.out.println(message);
@@ -42,7 +38,7 @@ public class RSA {
                     break;
                 }
                 default:
-                    System.out.println("Supported arguments are\n"
+                    System.out.println("Usage\n"
                             + "Encryption: -e <public key> <message>\n"
                             + "Decryption: -d <private key>\n"
                             + "Generate key pair: -g <name>");

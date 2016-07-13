@@ -11,19 +11,19 @@ import java.math.BigInteger;
 import java.util.Random;
 
 public final class Util {
-        
+
     //Returns a prime number of bitlength length
     public static BigInteger generatePrime(int length) {
         Random rand = new Random();
         return BigInteger.probablePrime(length, rand);
     }
-    
+
     //Random Integer between min and max (inclusive)
     public static int newRandom(int min, int max) {
         Random rand = new Random();
         return rand.nextInt(max - min + 1) + min;
     }
-    
+
     //Converts Ascii code to text
     public static String asciiToText(BigInteger m) {
 
@@ -46,26 +46,27 @@ public final class Util {
         }
         return new BigInteger(message);
     }
-    
+
     //Writes text to file
     public static void writeToFile(String fileName, String text) {
-      
+
         try (PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
             writer.println(text);
             writer.close();
-        }catch(FileNotFoundException | UnsupportedEncodingException ex){
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             System.err.println(ex.getMessage());
         }
     }
-    
+
     //Reads text from file
     public static String readFromFile(String filename) throws IOException {
         String text = "";      
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String line;
-            while((line = br.readLine()) != null){
-            text += line;
+        while((line = br.readLine()) != null){
+            text += line + "\r\n";
         }
+        text = text.substring(0, text.length() - 2);
         return text;
     }
 }

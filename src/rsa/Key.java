@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package rsa;
 
 import java.io.BufferedReader;
@@ -12,10 +8,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 
-/**
- *
- * @author user
- */
 class Key {
     
     public final BigInteger n;
@@ -30,7 +22,6 @@ class Key {
         
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
-            
             
             String line;
             for(int i = 0; (line = br.readLine()) != null; i++){
