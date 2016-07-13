@@ -30,9 +30,9 @@ Alternatively, build and run from the command line:
 ```bash
 $ java -jar RSA.jar -g <key_pair_name>
 # Generates new key pair
-$ java -jar RSA.jar -e <key_pair_name> <message_to_encrypt>
+$ java -jar RSA.jar -e <public_key> <message_to_encrypt>
 # Encrypts message and places it in cipher.txt
-$ java -jar RSA.jar -d <key_pair_name> <encrypted_file>
+$ java -jar RSA.jar -d <private_key> <encrypted_file>
 > Decrypted message
 # Decrypts message and places it in decrypted.txt
 ```
