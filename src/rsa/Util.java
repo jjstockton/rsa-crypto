@@ -1,4 +1,3 @@
-
 package rsa;
 
 import java.io.BufferedReader;
@@ -60,10 +59,10 @@ public final class Util {
 
     //Reads text from file
     public static String readFromFile(String filename) throws IOException {
-        String text = "";      
+        String text = "";
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String line;
-        while((line = br.readLine()) != null){
+        while ((line = br.readLine()) != null) {
             text += line + "\r\n";
         }
         text = text.substring(0, text.length() - 2);

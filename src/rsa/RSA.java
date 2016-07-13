@@ -1,4 +1,3 @@
-
 package rsa;
 
 import java.io.FileNotFoundException;
@@ -8,29 +7,28 @@ import java.math.BigInteger;
 public class RSA {
 
     public static void main(String[] args) throws IOException {
-        
-        if(args.length != 0){
+
+        if (args.length != 0) {
 
             switch (args[0]) {
                 case "-e": {
                     PublicKey pub = PublicKey.getPublicKey(args[1]);
                     String message;
-                    try{
+                    try {
                         message = Util.readFromFile(args[2]);
-                    }catch(FileNotFoundException ex){
+                    } catch (FileNotFoundException ex) {
                         message = args[2];
                     }
-                    BigInteger cipher = encrypt(message, pub);
+                    String cipher = encrypt(message, pub);
+                    Util.writeToFile("cipher.txt", cipher);
                     break;
                 }
                 case "-d": {
                     PrivateKey priv = PrivateKey.getPrivateKey(args[1]);
-                    
-                    BigInteger cipher = new BigInteger(Util.readFromFile("cipher.txt"));
-                    
-                    String message = decrypt(cipher, priv);
+
+                    String message = decrypt(args[2], priv);
                     System.out.println(message);
-                    Util.writeToFile("message.txt", message);
+                    Util.writeToFile("decrypted.txt", message);
                     break;
                 }
                 case "-g": {
@@ -44,31 +42,31 @@ public class RSA {
                             + "Generate key pair: -g <name>");
                     break;
             }
-        }else{
-            //Run from editor
-        }
+        } else {
+            //Put code here to run from editor
+        }   
     }
 
-    static BigInteger encrypt(String rawText, PublicKey k) {
+    static String encrypt(String rawText, PublicKey k) {
 
         BigInteger message = Util.textToAscii(rawText);
 
         BigInteger e = k.e;
         BigInteger n = k.n;
-        
+
         BigInteger cipher = message.modPow(e, n);
-        if(message.compareTo(n) == 1){
+        if (message.compareTo(n) == 1) {
             throw new IllegalArgumentException("Message is too long!");
         }
-        Util.writeToFile("cipher.txt", cipher.toString());
-
-        return cipher;
+        return cipher.toString();
     }
 
-    static String decrypt(BigInteger cipher, PrivateKey k) {
+    static String decrypt(String filename, PrivateKey k) throws IOException {
+        BigInteger cipher = new BigInteger(Util.readFromFile(filename));
+
         BigInteger d = k.d;
         BigInteger n = k.n;
-        
+
         return Util.asciiToText(cipher.modPow(d, n));
     }
 }
