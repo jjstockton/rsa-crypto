@@ -2,32 +2,30 @@ package main;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import rsa.key.KeyPair;
-import rsa.key.PrivateKey;
-import rsa.key.PublicKey;
+import rsa.*;
 import util.TextUtils;
 
-class ParseArguments {
+final class ParseArguments {
 
     static void parse(String[] args) throws IOException {
 
         switch (args[0]) {
             case "-e": {
-                PublicKey pub = PublicKey.getPublicKey(args[1]);
+                PublicKey pub = new PublicKey(args[1]);
                 String message;
                 try {
                     message = TextUtils.readFromFile(args[2]);
                 } catch (FileNotFoundException ex) {
                     message = args[2];
                 }
-                String cipher = pub.encrypt(message);
+                String cipher = Rsa.encrypt(message, pub);
                 TextUtils.writeToFile("cipher.txt", cipher);
                 break;
             }
             case "-d": {
-                PrivateKey pvt = PrivateKey.getPrivateKey(args[1]);
+                PrivateKey pvt = new PrivateKey(args[1]);
 
-                String message = pvt.decrypt(args[2]);
+                String message = Rsa.decrypt(args[2], pvt);
                 System.out.println(message);
                 TextUtils.writeToFile("decrypted.txt", message);
                 break;
