@@ -1,4 +1,4 @@
-package rsa;
+package util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,21 +7,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.util.Random;
 
-public final class Util {
-
-    //Returns a prime number of bitlength length
-    public static BigInteger generatePrime(int length) {
-        Random rand = new Random();
-        return BigInteger.probablePrime(length, rand);
-    }
-
-    //Random Integer between min and max (inclusive)
-    public static int newRandom(int min, int max) {
-        Random rand = new Random();
-        return rand.nextInt(max - min + 1) + min;
-    }
+public class TextUtils {
 
     //Converts Ascii code to text
     public static String asciiToText(BigInteger m) {
@@ -68,4 +55,5 @@ public final class Util {
         text = text.substring(0, text.length() - 2);
         return text;
     }
+
 }

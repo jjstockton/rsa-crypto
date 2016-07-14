@@ -9,17 +9,17 @@ Encrypt and decrypt messages using the RSA cryptosystem. Created as part of an o
 PublicKey pub = PublicKey.getPublicKey("some_key.public.txt");
 String message = "A super secret message";
 if (message.length() <= pub.maxMessageLength()) {
-	String cipher = encrypt(message, pub);
+    String cipher = pub.encrypt(message);
 } else {
-	System.out.println("The message is too long!");
+    System.out.println("The message is too long!");
 }
 
 //To decrypt a file
 PrivateKey pvt = PrivateKey.getPrivateKey("my_key.private.txt");
-String decrypted = decrypt("encrypted_file.txt", pvt);
+String decrypted = pvt.decrypt("encrypted_file.txt");
 
 //To generate a new key pair
-KeyPair keys = KeyPair.generateNewPair("my_key");
+KeyPair keys = new KeyPair("my_key");
 PublicKey myPub = keys.getPublicKey();
 PrivateKey myPvt = keys.getPrivateKey();
 ```
